@@ -4,6 +4,7 @@ import com.ipiecoles.java.mdd050.model.Technicien;
 import com.ipiecoles.java.mdd050.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,27 +19,11 @@ public class ManagerController {
         this.managerService.deleteTechniciens(idManager, idTechnicien);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{idManager}/equipe/{matricule}/add")
-    public Technicien addTechniciens(@PathVariable Long idManager, @PathVariable String matricule) {
-        return this.managerService.addTechniciens(idManager, matricule);
+    @RequestMapping(method = RequestMethod.GET,
+         value = "/{idManager}/equipe/{matriculTech}/add")
+    public void addTechniciens(@PathVariable("idManager") Long idManager, @PathVariable("matriculTech") String matriculTech) {
+         Technicien test = this.managerService.ajoutTechnicien(idManager, matriculTech);
+
+         System.out.println(test);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

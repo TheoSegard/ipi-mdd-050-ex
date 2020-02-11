@@ -99,6 +99,11 @@ public class EmployeService {
     }
 
     public Employe findByMatricule(String matricule) {
+
+        if(!matricule.matches("^[MCT][0-9]{5}$")){
+            throw new IllegalArgumentException("Mauvais matricule.");
+        }
+
         Employe employe =  this.employeRepository.findByMatricule(matricule);
         if(employe == null){
             throw new EntityNotFoundException("L'employé de matricule '" + matricule + "' n'a pas été trouvé.");

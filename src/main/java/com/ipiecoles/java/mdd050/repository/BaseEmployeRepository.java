@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BaseEmployeRepository<T extends Employe> extends PagingAndSortingRepository<T, Long> {
-    T findByMatricule(String matricule);
 
     List<T> findByNomAndPrenom(String nom, String prenom);
 

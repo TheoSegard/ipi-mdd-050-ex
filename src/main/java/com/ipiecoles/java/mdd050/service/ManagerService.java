@@ -38,27 +38,56 @@ public class ManagerService {
         technicienRepository.save(t);
     }
 
-    public Technicien addTechniciens(Long idManager, String matricule) {
-        Manager m = managerRepository.findOne(idManager);
-        if(m == null){
-            throw new EntityNotFoundException("Impossible de trouver le manager d'identifiant " + idManager);
+//    public Technicien addTechniciens(Long idManager, String matricule) {
+//        Manager m = managerRepository.findOne(idManager);
+//        if(m == null){
+//            throw new EntityNotFoundException("Impossible de trouver le manager d'identifiant " + idManager);
+//        }
+//        Technicien t = technicienRepository.findByMatricule(matricule);
+//        if(t == null){
+//            throw new EntityNotFoundException("Impossible de trouver le technicien de matricule " + matricule);
+//        }
+//
+//        if(t.getManager() != null){
+//            throw new IllegalArgumentException("Le technicien de matricule " + matricule + " a déjà un manager : " + t.getManager().getPrenom() + " " + t.getManager().getNom()
+//                    + " (matricule " + t.getManager().getMatricule() + ")");
+//        }
+//
+//        m.getEquipe().add(t);
+//        m = managerRepository.save(m);
+//
+//        t.setManager(m);
+//        technicienRepository.save(t);
+//
+//        return t;
+//    }
+
+    public Technicien ajoutTechnicien(Long idManager, String matriculTech){
+        Manager manager = managerRepository.findById(idManager);
+
+        if(manager == null) {
+            throw new EntityNotFoundException("Le manager d'identifiant : " +
+                    idManager + " n'a pas été trouvé.");
         }
-        Technicien t = technicienRepository.findByMatricule(matricule);
-        if(t == null){
-            throw new EntityNotFoundException("Impossible de trouver le technicien de matricule " + matricule);
+
+        Technicien technicien = technicienRepository.findByMatricule(matriculTech);
+
+        if (technicien == null) {
+            throw new EntityNotFoundException("Le technicien d'identifiant : " +
+                    matriculTech + " n'a pas été trouvé.");
         }
 
-        if(t.getManager() != null){
-            throw new IllegalArgumentException("Le technicien de matricule " + matricule + " a déjà un manager : " + t.getManager().getPrenom() + " " + t.getManager().getNom()
-                    + " (matricule " + t.getManager().getMatricule() + ")");
+        if (technicien.getManager() != null) {
+            throw new IllegalArgumentException("Le technicien d'identifiant : " +
+                    matriculTech + " possède déjà un manager.");
         }
 
-        m.getEquipe().add(t);
-        m = managerRepository.save(m);
+        manager.getEquipe().add(technicien);
+        manager = managerRepository.save(manager);
 
-        t.setManager(m);
-        technicienRepository.save(t);
+        technicien.setManager(manager);
+        technicienRepository.save(technicien);
 
-        return t;
+        return technicien;
     }
 }

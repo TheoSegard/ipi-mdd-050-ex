@@ -12,4 +12,7 @@ public interface TechnicienRepository extends BaseEmployeRepository<Technicien> 
 
     Slice<Technicien> findTop5ByGrade(Integer grade);
 
+    Technicien findById(Long idTechnicien);
+
+    Technicien findByMatricule(String matriculTech);
 }

@@ -11,6 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+
+//@RequestMapping(method = RequestMethod.GET, value = "/{idManager}/equipe/{matricule}/add")
+//public Technicien addTechniciens(@PathVariable Long idManager, @PathVariable String matricule) {
+//        return this.managerService.addTechniciens(idManager, matricule);
+//        }
+
+
+
+
 @RestController
 @RequestMapping("/employes")
 public class EmployeController {
@@ -81,10 +90,12 @@ public class EmployeController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    // Spécifie qu'il n'y a pas de contenu renvoyé :
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteEmploye(@PathVariable("id") Long id) throws EmployeException {
             this.employeService.deleteEmploye(id);
     }
+
 
     /*@ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
